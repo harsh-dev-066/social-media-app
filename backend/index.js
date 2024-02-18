@@ -3,6 +3,7 @@ const connectDB = require("./database/db");
 const dotenv = require("dotenv");
 const cookieParser = require("cookie-parser");
 const authRoute = require("./routes/auth");
+const { errorHandler } = require("./middlewares/error");
 
 const app = express();
 app.use(express.json());
@@ -11,6 +12,9 @@ dotenv.config();
 
 // Routes
 app.use("/api/auth", authRoute);
+
+// Middlewares
+app.use(errorHandler);
 
 app.listen(process.env.PORT, () => {
   connectDB();
