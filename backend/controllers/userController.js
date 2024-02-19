@@ -217,6 +217,24 @@ const deleteUserController = async (req, res, next) => {
   }
 };
 
+const searchUserController = async (req, res, next) => {
+  const { query } = req.params;
+  console.log({ query });
+  try {
+    if (!query.trim()) throw new CustomError("Provide valid query", 404);
+    const users = await User.find({
+      $or: [
+        { username: { $regex: new RegExp(query, "i") } },
+        { fullName: { $regex: new RegExp(query, "i") } },
+      ],
+    });
+
+    res.status(200).json(users);
+  } catch (error) {
+    next(error);
+  }
+};
+
 module.exports = {
   getUserController,
   updateUserController,
@@ -226,4 +244,5 @@ module.exports = {
   unblockUserController,
   getBlockListController,
   deleteUserController,
+  searchUserController,
 };
