@@ -2,6 +2,7 @@ const express = require("express");
 const connectDB = require("./database/db");
 const dotenv = require("dotenv");
 const cookieParser = require("cookie-parser");
+const path = require("path");
 const authRoutes = require("./routes/auth");
 const userRoutes = require("./routes/user");
 const { errorHandler } = require("./middlewares/error");
@@ -9,6 +10,7 @@ const { errorHandler } = require("./middlewares/error");
 const app = express();
 app.use(express.json());
 app.use(cookieParser());
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 dotenv.config();
 
 // Routes
