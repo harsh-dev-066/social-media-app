@@ -3,6 +3,7 @@ const Post = require("../models/Post");
 const Comment = require("../models/Comment");
 const Story = require("../models/Story");
 const { CustomError } = require("../middlewares/error");
+const { generateFileUrl } = require("../utils/utils");
 
 const getUserController = async (req, res, next) => {
   const userId = req.params.userId;
@@ -219,7 +220,6 @@ const deleteUserController = async (req, res, next) => {
 
 const searchUserController = async (req, res, next) => {
   const { query } = req.params;
-  console.log({ query });
   try {
     if (!query.trim()) throw new CustomError("Provide valid query", 404);
     const users = await User.find({
@@ -233,10 +233,6 @@ const searchUserController = async (req, res, next) => {
   } catch (error) {
     next(error);
   }
-};
-
-const generateFileUrl = (filename) => {
-  return process.env.URL + `/uploads/${filename}`;
 };
 
 const uploadProfilePictureController = async (req, res, next) => {
