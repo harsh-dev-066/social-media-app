@@ -103,10 +103,54 @@ const deletePostController = async (req, res, next) => {
   }
 };
 
+const likePostController = async (req, res, next) => {
+  const { postId } = req.params;
+  const { userId } = req.body;
+  try {
+    const post = await Post.findById(postId);
+    if (!post) throw new CustomError("Post not found", 404);
+    const user = await User.findById(userId);
+    if (!user) throw new CustomError("User not found", 404);
+
+    if (post.likes.includes(userId)) {
+      throw new CustomError("You have already liked the post", 404);
+    }
+    post.likes.push(userId);
+    await post.save();
+
+    res.status(200).json({ message: "Post liked successfully", post });
+  } catch (error) {
+    next(error);
+  }
+};
+
+const dislikePostController = async (req, res, next) => {
+  const { postId } = req.params;
+  const { userId } = req.body;
+  try {
+    const post = await Post.findById(postId);
+    if (!post) throw new CustomError("Post not found", 404);
+    const user = await User.findById(userId);
+    if (!user) throw new CustomError("User not found", 404);
+
+    if (!post.likes.includes(userId)) {
+      throw new CustomError("You have not liked the post", 404);
+    }
+    post.likes = post.likes.filter((like) => like.toString() !== userId);
+    await post.save();
+
+    res.status(200).json({ message: "Post liked successfully", post });
+  } catch (error) {
+    next(error);
+  }
+};
+
 module.exports = {
   createPostController,
   updatePostController,
   getPostsController,
   getUserPostsController,
   deletePostController,
+  likePostController,
+  dislikePostController,
 };
