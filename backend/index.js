@@ -7,6 +7,7 @@ const authRoutes = require("./routes/auth");
 const userRoutes = require("./routes/user");
 const postRoutes = require("./routes/post");
 const commentRoutes = require("./routes/comment");
+const storiesRoutes = require("./routes/stories");
 const { errorHandler } = require("./middlewares/error");
 
 const app = express();
@@ -20,6 +21,7 @@ app.use("/api/auth", authRoutes);
 app.use("/api/user", userRoutes);
 app.use("/api/post", postRoutes);
 app.use("/api/comment", commentRoutes);
+app.use("/api/story", storiesRoutes);
 
 // Middlewares
 app.use(errorHandler);
