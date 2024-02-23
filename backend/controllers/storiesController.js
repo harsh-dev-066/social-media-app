@@ -29,6 +29,7 @@ const createStoryController = async (req, res, next) => {
     next(error);
   }
 };
+
 const getStoriesController = async (req, res, next) => {
   const { userId } = req.params;
   try {
@@ -45,6 +46,7 @@ const getStoriesController = async (req, res, next) => {
     next(error);
   }
 };
+
 const getUserStoriesController = async (req, res, next) => {
   const { userId } = req.params;
   try {
@@ -60,6 +62,7 @@ const getUserStoriesController = async (req, res, next) => {
     next(error);
   }
 };
+
 const deleteStoryController = async (req, res, next) => {
   const { storyId } = req.params;
   try {
