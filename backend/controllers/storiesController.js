@@ -72,6 +72,7 @@ const deleteStoryController = async (req, res, next) => {
     next(error);
   }
 };
+
 const deleteStoriesController = async (req, res, next) => {
   const { userId } = req.params;
   try {
