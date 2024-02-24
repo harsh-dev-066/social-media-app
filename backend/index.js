@@ -9,6 +9,7 @@ const postRoutes = require("./routes/post");
 const commentRoutes = require("./routes/comment");
 const storiesRoutes = require("./routes/stories");
 const conversationRoutes = require("./routes/conversation");
+const messageRoutes = require("./routes/message");
 const { errorHandler } = require("./middlewares/error");
 
 const app = express();
@@ -24,6 +25,7 @@ app.use("/api/post", postRoutes);
 app.use("/api/comment", commentRoutes);
 app.use("/api/story", storiesRoutes);
 app.use("/api/conversation", conversationRoutes);
+app.use("/api/message", messageRoutes);
 
 // Middlewares
 app.use(errorHandler);
