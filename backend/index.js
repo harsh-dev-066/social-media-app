@@ -11,6 +11,7 @@ const storiesRoutes = require("./routes/stories");
 const conversationRoutes = require("./routes/conversation");
 const messageRoutes = require("./routes/message");
 const { errorHandler } = require("./middlewares/error");
+const verifyToken = require("./middlewares/verifyToken");
 
 const app = express();
 app.use(express.json());
@@ -20,12 +21,12 @@ dotenv.config();
 
 // Routes
 app.use("/api/auth", authRoutes);
-app.use("/api/user", userRoutes);
-app.use("/api/post", postRoutes);
-app.use("/api/comment", commentRoutes);
-app.use("/api/story", storiesRoutes);
-app.use("/api/conversation", conversationRoutes);
-app.use("/api/message", messageRoutes);
+app.use("/api/user", verifyToken, userRoutes);
+app.use("/api/post", verifyToken, postRoutes);
+app.use("/api/comment", verifyToken, commentRoutes);
+app.use("/api/story", verifyToken, storiesRoutes);
+app.use("/api/conversation", verifyToken, conversationRoutes);
+app.use("/api/message", verifyToken, messageRoutes);
 
 // Middlewares
 app.use(errorHandler);
